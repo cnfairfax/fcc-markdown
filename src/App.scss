@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,400i');
+
+$base-bg: #ddd;
+$base-fg: #454;
+$colored-fg: #ddd;
+$red-bg: rgb(202, 72, 72);
+$blue-bg: rgb(84, 84, 185);
+$green-bg: rgb(98, 167, 98);
+$orange-bg: rgb(216, 154, 38);
+
+$transition: all ease .25s;
+
+@mixin centered-row() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin spaced-row() {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@mixin centered-column() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin font-default() {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+}
+
+@mixin font-emphasis() {
+    font-family: 'Playfair Display', Serif;
+    font-weight: 400;
+    font-style: italic;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: $base-bg;
+    color: $base-fg;
+    @include centered-row();
+    @include font-default();
+}
+
+.Quotebox {
+    background-color: $base-fg;
+    color: $colored-fg;
+    width: 75%;
+    min-height: 50%;
+    padding: 20px 0 150px;
+    position: relative;
+    transition: $transition;
+    @include centered-column();
+
+    .Quote {
+        width: 80%;
+        font-size: 4em;
+        user-select: none;
+        @include centered-column();
+
+        #text, #author {
+            width: 100%;
+        }
+
+        #author {
+            margin-top: 1em;
+            text-align: right;
+            font-size: .75em;
+            @include font-emphasis();
+        }
+    }
+
+    .Controls {
+        margin-top: 50px;
+        position: absolute;
+        bottom: 50px;
+        width: 75%;
+        @include spaced-row();
+
+        button, .button {
+            @include centered-column();
+            text-decoration: none;
+            background: #fff;
+            border: none;
+            font-size: 2em;
+            width: 2.5em;
+            height: 2.5em;
+            border-radius: 50%;
+            box-shadow: 5px 5px 6px rgba(50,50,50,.5);
+            transition: $transition;
+
+            i {
+                transition: $transition;
+            }
+
+            &:hover {
+                box-shadow: 2px 2px 7px 8px rgba(50,50,50,.3);
+                cursor: pointer;
+
+                i {
+                    transform: rotate(-30deg);
+                }
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+
+@for $i from 0 through 10 {
+    //dynamically generate new color, rotating hue by 36deg for each new layer
+    .Quotebox.color-#{$i} {
+        background-color: hsl(36*$i,55%,25%);
+        color:  hsl(36*($i+5),55%,90%);
+
+        .Controls button, .Controls .button {
+            color: hsl(36*$i+5,55%,40%);                
+        }
+    }
+}
