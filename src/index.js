@@ -6,11 +6,11 @@ import { Provider } from 'react-redux';
 
 import App from './App';
 
-import quote from './reducers/quote';
+import preview from './reducers/preview';
 
 import * as serviceWorker from './serviceWorker';
 
-const app = combineReducers({quote});
+const app = combineReducers({preview});
 
 const store = createStore(
     app,
